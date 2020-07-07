@@ -1,0 +1,32 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name":"client",
+            "image":"federicofernanus/multi-client",
+            "hostname": "client",
+            "essential": false
+        }, {
+            "name":"server",
+            "image":"federicofernanus/multi-server",
+            "hostname":"api",
+            "essential": false
+        }, {
+            "name":"worker",
+            "image":"federicofernanus/multi-worker",
+            "hostname":"worker",
+            "essential": false
+        }, {
+            "name":"nginx",
+            "image":"federicofernanus/multi-nginx",
+            "hostname":"nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ]
+        }
+    ]
+}
