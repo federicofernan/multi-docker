@@ -1,0 +1,18 @@
+
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t federicofernanus/react-test -f ./client/Dockerfile.dev ./client
+
+after_success:
+  - docker build -t federicofernanus/multi-client ./client
+  - docker build -t federicofernanus/multi-nginx ./nginx
+  - docker build -t federicofernanus/multi-server ./server
+  - docker build -t federicofernanus/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push federicofernanus/multi-client
+  - docker push federicofernanus/multi-nginx
+  - docker push federicofernanus/multi-server
+  - docker push federicofernanus/multi-worker
